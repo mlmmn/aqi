@@ -1,0 +1,32 @@
+{
+  "0": {
+    "rating": "Good",
+    "description": "Air quality is considered satisfactory, and air pollution poses little or no risk",
+    "tag": "success"
+  },
+  "51": {
+    "rating": "Moderate",
+    "description": "Air quality is acceptable; however, for some pollutants there may be a moderate health concern for a very small number of people who are unusually sensitive to air pollution.",
+    "tag": "primary"
+  },
+  "101": {
+    "rating": "Unhealthy for sensitive groups",
+    "description": "Members of sensitive groups may experience health effects. The general public is not likely to be affected.",
+    "tag": "info"
+  },
+  "151": {
+    "rating": "Unhealthy",
+    "description": "Everyone may begin to experience health effects; members of sensitive groups may experience more serious health effects.",
+    "tag": "warning"
+  },
+  "201": {
+    "rating": "Very Unhealthy",
+    "description": "Health warnings of emergency conditions. The entire population is more likely to be affected.",
+    "tag": "danger"
+  },
+  "301": {
+    "rating": "Hazardous",
+    "description": "Health alert: everyone may experience more serious health effects",
+    "tag": "dark"
+  }
+}

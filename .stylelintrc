@@ -1,0 +1,108 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-order"
+  ],
+  "rules": {
+    "declaration-empty-line-before": null,
+    "order/order": [
+      "dollar-variables",
+      "declarations",
+      "at-rules",
+      "rules"
+    ],
+    "order/properties-order": [
+      [{
+          "emptyLineBefore": "never",
+          "properties": [
+            "content"
+          ]
+        },
+        {
+          "emptyLineBefore": "always",
+          "properties": [
+            "position",
+            "z-index",
+            "top",
+            "left",
+            "bottom",
+            "right",
+            "flex-direction",
+            "flex-wrap",
+            "flex-flow",
+            "justify-content",
+            "align-items",
+            "align-content",
+            "order",
+            "align-self",
+            "flex-grow",
+            "flex-shrink",
+            "flex-basis",
+            "flex",
+            "float",
+            "clear"
+          ]
+        },
+        {
+          "emptyLineBefore": "always",
+          "properties": [
+            "display",
+            "opacity",
+            "transform"
+          ]
+        },
+        {
+          "emptyLineBefore": "always",
+          "properties": [
+            "overflow",
+            "clip"
+          ]
+        },
+        {
+          "emptyLineBefore": "always",
+          "properties": [
+            "animation",
+            "transition"
+          ]
+        },
+        {
+          "emptyLineBefore": "always",
+          "properties": [
+            "margin",
+            "box-shadow",
+            "border",
+            "border-radius",
+            "box-sizing",
+            "width",
+            "height",
+            "padding"
+          ]
+        },
+        {
+          "emptyLineBefore": "always",
+          "properties": [
+            "background",
+            "cursor"
+          ]
+        },
+        {
+          "emptyLineBefore": "always",
+          "properties": [
+            "font-size",
+            "line-height",
+            "font-family",
+            "font-weight",
+            "font-style",
+            "text-align",
+            "text-transform",
+            "word-spacing",
+            "color"
+          ]
+        }
+      ],
+      {
+        "unspecified": "bottomAlphabetical"
+      }
+    ]
+  }
+}
