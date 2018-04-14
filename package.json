@@ -26,7 +26,8 @@
     "start": "node scripts/server.js",
     "start:dev": "concurrently --kill-others-on-fail \"node -r dotenv/config  scripts/server.js\" \"node scripts/start.js\"",
     "build": "node scripts/build.js",
-    "test:app": "node scripts/test.js --env=jsdom"
+    "test:app": "node scripts/test.js --env=jsdom",
+    "postinstall": "yarn build"
   },
   "engines": {
     "node": "8.10.0"
