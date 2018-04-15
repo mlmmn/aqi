@@ -1,27 +1,17 @@
 export default {
-    search(keyword) {
-        return fetch(`/api/search/${keyword}`)
-               .then((response) => {
+    async search(keyword) {
+        let response = await fetch(`/api/search/${keyword}`);
 
-                   if (response.ok) {
-                       return response.json();
-                   }
-               })
-               .then((data) => {
-                   return data;
-               });
+        if (response.ok) {
+            return response.json();
+        }
     },
 
-    getStation(id) {
-        return fetch(`/api/getstation/${id}`)
-            .then((response) => {
+    async getStation(id) {
+        let response = await fetch(`/api/getstation/${id}`);
 
-                if (response.ok) {
-                    return response.json();
-                }
-            })
-            .then((data) => {
-                return data;
-            });
+        if (response.ok) {
+            return response.json();
+        }
     }
 }
