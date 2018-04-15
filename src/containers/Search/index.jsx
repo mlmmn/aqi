@@ -47,7 +47,7 @@ class Search extends Component {
             const response = await api.search(nextState.searchQuery);
 
             this.setState({
-                searchResults: response,
+                searchResults: response || [],
                 loading: false,
                 suggestionsVisible: true
             })
