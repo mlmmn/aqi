@@ -29,29 +29,31 @@ class Search extends Component {
         if (inputValue === '') {
             this.setState({
                 searchResults: [],
-                suggestionsVisible: false
+                suggestionsVisible: false,
+                loading: false
             });
-
-            return;
+        } else {
+            this.setState({
+                loading: true
+            });
         }
 
         this.updateSearchQuery(inputValue);
-        this.setState({
-            loading: true
-        });
     };
 
     async componentWillUpdate(nextProps, nextState) {
 
-        if (this.state.searchQuery !== nextState.searchQuery) {
-            const response = await api.search(nextState.searchQuery);
-
-            this.setState({
-                searchResults: response || [],
-                loading: false,
-                suggestionsVisible: true
-            })
+        if (this.state.searchQuery === nextState.searchQuery || !nextState.searchQuery) {
+            return;
         }
+
+        const response = await api.search(nextState.searchQuery);
+
+        this.setState({
+            searchResults: response || [],
+            loading: false,
+            suggestionsVisible: !!this.state.searchQuery
+        });
     }
 
     render() {
