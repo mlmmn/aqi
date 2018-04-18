@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { Tag } from 'reactbulma';
 
-import { SubTitle } from 'reactbulma';
+import './search-results.scss';
 
 const SearchSuggestions = (props) => {
     if (!props.searchResultsVisible) {
@@ -10,28 +11,30 @@ const SearchSuggestions = (props) => {
 
     let searchResults = props.searchResults.map((searchItem) => {
         return (
-            <li key={searchItem.uid}>
+            <li className='search-item' key={searchItem.uid}>
                 <Link to={`/station/${searchItem.uid}`}>
-                    {searchItem.station.name}
+                    <div className='search-item__content'>
+                        <span className='search-item__text'>
+                            {searchItem.station.name}
+                        </span>
+                        <Tag className={`is-pulled-right`}>
+                            AQI: {searchItem.aqi}
+                        </Tag>
+                    </div>
                 </Link>
             </li>
         );
     });
 
     if (searchResults.length === 0) {
-        searchResults = <li>Nothing found :(</li>;
+        searchResults = 'Nothing found :(';
     }
 
     return (
-        <div>
-            <SubTitle is='5'>
-                Search results for <strong>{props.searchQuery}</strong>
-            </SubTitle>
-            <ul>
-                { searchResults }
-            </ul>
-        </div>
-    )
+        <ul className="search-results">
+            {searchResults}
+        </ul>
+    );
 };
 
 export default SearchSuggestions;

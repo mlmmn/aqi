@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+import {
+    Section,
+    Container
+} from 'reactbulma';
 import api from 'api';
 
 import SearchInput from 'components/SearchInput';
@@ -49,18 +53,20 @@ class Search extends Component {
 
     render() {
         return (
-            <div>
-                <SearchInput
-                    inputValue={this.state.searchQuery}
-                    inputHandle={this.handleInputChange}
-                    searchHandle={this.handleSearch}
-                    loading={this.state.loading}/>
-                <SearchResults
-                    searchQuery={this.searchQuery}
-                    searchResults={this.state.searchResults}
-                    searchResultsVisible={this.state.searchResultsVisible}
-                />
-            </div>
+            <Section>
+                <Container>
+                    <SearchInput
+                        inputValue={this.state.searchQuery}
+                        inputHandle={this.handleInputChange}
+                        searchHandle={this.handleSearch}
+                        searchQuery={this.searchQuery}
+                        loading={this.state.loading}/>
+                    <SearchResults
+                        searchResults={this.state.searchResults}
+                        searchResultsVisible={this.state.searchResultsVisible}
+                    />
+                </Container>
+            </Section>
         )
 
     }

@@ -1,0 +1,26 @@
+.search-item__content {
+  padding: 1rem 0.5rem;
+}
+
+.search-item__text {
+  transition: margin-left 150ms ease;
+}
+
+.search-item {
+  transition: background-color 150ms ease;
+
+  border: 1px solid #f5f5f5;
+  background-color: #fff;
+}
+
+.search-item:hover {
+  background-color: #fcfcfc;
+
+  .search-item__text {
+    margin-left: 0.15rem;
+  }
+}
+
+.search-item + .search-item {
+  border-top-width: 0;
+}
