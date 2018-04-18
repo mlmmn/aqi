@@ -1,70 +1,64 @@
 import React, { Component } from 'react';
-import { debounce } from 'lodash';
 import api from 'api';
 
 import SearchInput from 'components/SearchInput';
-import SearchSuggestions from "components/SearchSuggestions";
+import SearchResults from "components/SearchResults";
 
 class Search extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            searchQuery: '',
+            userInput: '',
             searchResults: [],
-            loading: false,
-            suggestionsVisible: false
-        }
-    }
+            searchResultsVisible: false,
+            loading: false
+        };
 
-    updateSearchQuery = debounce((query) => {
-        this.setState({
-            searchQuery: query
-        });
-    }, 300);
+        this.searchQuery = '';
+    }
 
     handleInputChange = (evt) => {
         let inputValue = evt.target.value;
 
-        if (inputValue === '') {
-            this.setState({
-                searchResults: [],
-                suggestionsVisible: false,
-                loading: false
-            });
-        } else {
-            this.setState({
-                loading: true
-            });
-        }
-
-        this.updateSearchQuery(inputValue);
+        this.setState({
+            userInput: inputValue
+        });
     };
 
-    async componentWillUpdate(nextProps, nextState) {
+    handleSearch = async (evt) => {
+        evt.preventDefault();
 
-        if (this.state.searchQuery === nextState.searchQuery || !nextState.searchQuery) {
+        if (!!this.state.userInput === false || this.state.loading) {
             return;
         }
 
-        const response = await api.search(nextState.searchQuery);
+        this.setState({
+            loading: true
+        });
 
+        const response = await api.search(this.state.userInput);
+
+        this.searchQuery = this.state.userInput;
         this.setState({
             searchResults: response || [],
-            loading: false,
-            suggestionsVisible: !!this.state.searchQuery
+            searchResultsVisible: true,
+            loading: false
         });
-    }
+    };
 
     render() {
         return (
             <div>
                 <SearchInput
-                    inputHandle={ this.handleInputChange }
+                    inputValue={this.state.searchQuery}
+                    inputHandle={this.handleInputChange}
+                    searchHandle={this.handleSearch}
                     loading={this.state.loading}/>
-                <SearchSuggestions
+                <SearchResults
+                    searchQuery={this.searchQuery}
                     searchResults={this.state.searchResults}
-                    suggestionsVisible={this.state.suggestionsVisible}
+                    searchResultsVisible={this.state.searchResultsVisible}
                 />
             </div>
         )
