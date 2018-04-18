@@ -11,9 +11,6 @@ import {
 import FontAwesomeIcon from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/fontawesome-free-solid';
 
-import aqiRating from 'data/aqiRating';
-import measurementParams from 'data/measurementParams';
-
 class Station extends Component {
     constructor(props) {
         super(props);
@@ -25,59 +22,27 @@ class Station extends Component {
         }
     }
 
-    getAqiRating = (aqi) => {
-        let newState;
-
-        for (let rating in aqiRating) {
-
-            if (aqi >= parseInt(rating, 10)) {
-                newState = {
-                    rating: aqiRating[rating]["rating"],
-                    description: aqiRating[rating]["description"],
-                    color: aqiRating[rating]["tag"]
-                }
-            }
-        }
-
-        return newState;
-    };
-
     async componentWillMount() {
-        let response;
-
-        try {
-            response = await api.getStation(this.props.match.params.id);
-            if (!response) {
-                throw new Error('Could not fetch data from server');
-            }
-        }
-        catch (error) {
-            return;
-        }
+        let response = await api.getStation(this.props.match.params.id);
 
         let measurementData = [];
-        let newState;
 
         for (let prop in response.iaqi) {
-            if (measurementParams.hasOwnProperty(prop)) {
-                measurementData.push({
-                    name: measurementParams[prop],
-                    value: response.iaqi[prop].v
-                });
-            }
+            measurementData.push({
+                name: response.iaqi[prop].name,
+                value: response.iaqi[prop].v
+            });
         }
 
-        newState = Object.assign({},
-            {
-                aqi: response.aqi,
-                station: response.city.name,
-                updatedOn: response.time.s,
-                measurementData
-            },
-            this.getAqiRating(response.aqi)
-        );
-
-        this.setState(newState);
+        this.setState({
+            station: response.city.name,
+            aqi: response.aqi,
+            measurementData,
+            color: response.color,
+            rating: response.rating,
+            description: response.description,
+            updatedOn: response.time.s
+        });
     };
 
     render() {

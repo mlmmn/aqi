@@ -4,9 +4,17 @@ import { Tag } from 'reactbulma';
 
 import './search-results.scss';
 
-const SearchSuggestions = (props) => {
+const SearchResults = (props) => {
     if (!props.searchResultsVisible) {
         return null;
+    }
+
+    if (props.searchResults.length === 0) {
+        return (
+            <div>
+                Nothing found :(
+            </div>
+        );
     }
 
     let searchResults = props.searchResults.map((searchItem) => {
@@ -14,10 +22,10 @@ const SearchSuggestions = (props) => {
             <li className='search-item' key={searchItem.uid}>
                 <Link to={`/station/${searchItem.uid}`}>
                     <div className='search-item__content'>
-                        <span className='search-item__text'>
+                        <span className={`search-item__text`}>
                             {searchItem.station.name}
                         </span>
-                        <Tag className={`is-pulled-right`}>
+                        <Tag className={`is-pulled-right is-${searchItem.color}`}>
                             AQI: {searchItem.aqi}
                         </Tag>
                     </div>
@@ -26,10 +34,6 @@ const SearchSuggestions = (props) => {
         );
     });
 
-    if (searchResults.length === 0) {
-        searchResults = 'Nothing found :(';
-    }
-
     return (
         <ul className="search-results">
             {searchResults}
@@ -37,4 +41,4 @@ const SearchSuggestions = (props) => {
     );
 };
 
-export default SearchSuggestions;
+export default SearchResults;
