@@ -8,8 +8,6 @@ import {
     SubTitle,
     Container
 } from 'reactbulma';
-import FontAwesomeIcon from '@fortawesome/react-fontawesome';
-import { faArrowLeft } from '@fortawesome/fontawesome-free-solid';
 
 class Station extends Component {
     constructor(props) {
@@ -68,23 +66,6 @@ class Station extends Component {
 
         return(
             <Hero className={`is-${this.state.color}`} fullheight bold>
-                <Hero.Head style={{padding: '24px'}}>
-                    <Container>
-                        <button
-                            style={{
-                                background: 'transparent',
-                                border: 0,
-                                color: '#ffffff',
-                                cursor: 'pointer'
-                            }}
-                            onClick={this.props.history.goBack}
-                        >
-                            <FontAwesomeIcon icon={faArrowLeft}
-                                             transform="left-5"/>
-                            Go back
-                        </button>
-                    </Container>
-                </Hero.Head>
                 <Hero.Body>
                     <Container>
                         <Title is="2">
