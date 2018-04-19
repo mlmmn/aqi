@@ -13,7 +13,7 @@ const app = express();
 const port = process.env.PORT || 3002;
 
 if (process.env.NODE_ENV === 'production') {
-    app.use(express.static(path.join(__dirname, '../build')));
+    app.use(express.static(path.join(__dirname, 'build')));
 }
 
 function checkAqi(aqi) {
