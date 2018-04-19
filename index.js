@@ -47,7 +47,7 @@ app.get('/api/search/:keyword', async (req, res) => {
 
         if (response.ok) {
             data = await response.json();
-            data = data.data;
+            data = await data.data;
 
             data = data.filter((item) => {
                 return checkAqi(item.aqi);
@@ -80,28 +80,28 @@ app.get('/api/getstation/:id', async (req, res) => {
     let data;
 
     try {
-        response = await fetch(`${AQICN_URL_FEED}@${encodeURI(id)}/?token=${ AQICN_TOKEN }`)
-
-        if (response.ok) {
+        for (let i = 0; i < 3; i++) {
+            response = await fetch(`${AQICN_URL_FEED}@${encodeURI(id)}/?token=${ AQICN_TOKEN }`);
             data = await response.json();
             data = data.data;
 
-            data = Object.assign(
-                data,
-                getRatingData(data.aqi)
-            );
-
-            for (let prop in data.iaqi) {
-
-                if (measurementParams.hasOwnProperty(prop)) {
-                    data.iaqi[prop].name = measurementParams[prop];
-                } else {
-                    delete data.iaqi[prop];
-                }
+            if (!!data) {
+                break;
             }
+        }
 
-        } else {
-            throw new Error('Data could not be fetched from server');
+        data = Object.assign(
+            data,
+            getRatingData(data.aqi)
+        );
+
+        for (let prop in data.iaqi) {
+
+            if (measurementParams.hasOwnProperty(prop)) {
+                data.iaqi[prop].name = measurementParams[prop];
+            } else {
+                delete data.iaqi[prop];
+            }
         }
 
         res.send(data);

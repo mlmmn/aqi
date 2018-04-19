@@ -20,27 +20,38 @@ class Station extends Component {
         }
     }
 
-    async componentWillMount() {
-        let response = await api.getStation(this.props.match.params.id);
+    fetchStation = async (id) => {
+        try {
+            const response = await api.getStation(id);
+            let measurementData = [];
 
-        let measurementData = [];
+            for (const prop in response.iaqi) {
+                measurementData.push({
+                    name: response.iaqi[prop].name,
+                    value: response.iaqi[prop].v
+                });
+            }
 
-        for (let prop in response.iaqi) {
-            measurementData.push({
-                name: response.iaqi[prop].name,
-                value: response.iaqi[prop].v
+            this.setState({
+                station: response.city.name,
+                aqi: response.aqi,
+                measurementData,
+                color: response.color,
+                rating: response.rating,
+                description: response.description,
+                updatedOn: response.time.s
             });
         }
+        catch (error) {
+            this.setState({
+                station: 'ERROR' // hehe
+            });
+        }
+    };
 
-        this.setState({
-            station: response.city.name,
-            aqi: response.aqi,
-            measurementData,
-            color: response.color,
-            rating: response.rating,
-            description: response.description,
-            updatedOn: response.time.s
-        });
+    componentDidMount() {
+        const { id } = this.props.match.params;
+        this.fetchStation(id);
     };
 
     render() {
