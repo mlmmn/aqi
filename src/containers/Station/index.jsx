@@ -78,14 +78,15 @@ class Station extends Component {
         return(
             <Hero className={`is-${this.state.color}`} fullheight bold>
                 <Hero.Body>
-                    <Container>
+                    <Container className="has-text-centered">
                         <Title is="2">
                             {this.state.station}
                         </Title>
                         <SubTitle>
                             {`Overall air quality: ${this.state.rating} (AQI ${this.state.aqi})`}
                         </SubTitle>
-
+                    </Container>
+                    <Container>
                         <Message className={`is-${this.state.color}`}>
                             <Message.Body>
                                 {this.state.description}
